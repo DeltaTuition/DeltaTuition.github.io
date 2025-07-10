@@ -80,6 +80,9 @@
       //Monitor Auth State
       onAuthStateChanged(auth, (user) => {
         const status  = document.getElementById("user-status");
+        const privateContent = document.getElementById("private-content");
+        const publicContent = document.getElementById("public-content");
+
         if (user) {
           status.textContent = `Logged in as: ${user.email}`;
           privateContent.style.display = "block";
