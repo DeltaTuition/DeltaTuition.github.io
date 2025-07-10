@@ -63,9 +63,11 @@
       window.logIn = async function () {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
+
         try {
           await signInWithEmailAndPassword(auth, email, password);
-          document.getElementById("message").textContent = "Logged in!";
+          // Redirect after successful login
+          window.location.href = "dashboard.html";
         } catch (error) {
           document.getElementById("message").textContent = error.message;
         }
