@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <h1>Welcome to your dashboard</h1>
-    <p id="user-status"></p>
-    <button onclick="logOut()">Log out</button>
+    <head>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <h1>Welcome to your dashboard</h1>
+        <p id="user-status"></p>
+        <button onclick="logOut()">Log out</button>
 
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-      import { firebaseConfig } from "./firebase-config.js";
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+            import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+            import { firebaseConfig } from "./firebase-config.js";
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
 
-      onAuthStateChanged(auth, (user) => {
-        const status = document.getElementById("user-status");
-        if (user) {
-          status.textContent = `Logged in as ${user.email}`;
-        } else {
-          window.location.href = "index.html"; // ✅ This will redirect on logout
-        }
-      });
+            window.onload = function () {
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
 
-      window.logOut = async function () {
-        try {
-          await signOut(auth); // 👈 No need to manually redirect
-        } catch (error) {
-          console.error("Logout failed:", error);
-        }
-      };
+                onAuthStateChanged(auth, (user) => {
+                    const status = document.getElementById("user-status");
+                    if (user) {
+                    status.textContent = `Logged in as ${user.email}`;
+                    } else {
+                    window.location.href = "index.html";
+                    }
+                });
+
+                window.logOut = async function () {
+                    try {
+                    await signOut(auth);
+                    } catch (error) {
+                    console.error("Logout failed:", error);
+                    }
+                };
+            };
     </script>
   </body>
 </html>
