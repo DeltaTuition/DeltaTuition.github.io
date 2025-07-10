@@ -28,7 +28,10 @@
         }
       });
 
-      window.logOut = () => signOut(auth);
+      window.logOut = async function () {
+        await signOut(auth);
+        window.location.href = "index.html";
+      };
     </script>
   </body>
 </html>
