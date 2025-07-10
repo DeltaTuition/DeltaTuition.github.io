@@ -1,3 +1,4 @@
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,27 +17,18 @@
             const app = initializeApp(firebaseConfig);
             const auth = getAuth(app);
 
-            window.onload = function () {
-                const app = initializeApp(firebaseConfig);
-                const auth = getAuth(app);
+            // Redirect if not logged in
+            onAuthStateChanged(auth, (user) => {
+            const status = document.getElementById("user-status");
+            if (user) {
+                status.textContent = `Logged in as ${user.email}`;
+            } else {
+                // Redirect to login if not authenticated
+                window.location.href = "index.html";
+            }
+        });
 
-                onAuthStateChanged(auth, (user) => {
-                    const status = document.getElementById("user-status");
-                    if (user) {
-                    status.textContent = `Logged in as ${user.email}`;
-                    } else {
-                    window.location.href = "index.html";
-                    }
-                });
-
-                window.logOut = async function () {
-                    try {
-                    await signOut(auth);
-                    } catch (error) {
-                    console.error("Logout failed:", error);
-                    }
-                };
-            };
-    </script>
-  </body>
+        window.logOut = () => signOut(auth);
+        </script>
+    </body>
 </html>
