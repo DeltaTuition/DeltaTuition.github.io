@@ -6,5 +6,68 @@
   <body>
     <h1>Delta Tuition Database</h1>
     <p>Welcome to this centralised collection of resources to aid you with your studies. Work in progress!</p>
+    <h1>Login System</h1>
+
+    <div>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+    </div>
+
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="logIn()">Log In</button>
+    <p id="message"></p>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxYsXHIhnnPZg71ts7MKJc24a9NIn2Y-Q",
+        authDomain: "deltatuitiondatabase.firebaseapp.com",
+        projectId: "deltatuitiondatabase",
+        storageBucket: "deltatuitiondatabase.firebasestorage.app",
+        messagingSenderId: "850385026304",
+        appId: "1:850385026304:web:4d40f8c006ae4f01a947e5"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Sign Up
+      window.signUp = async function () {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          document.getElementById("message").textContent = "Signed up!";
+        } catch (error) {
+          document.getElementById("message").textContent = error.message;
+        }
+      };
+
+      // Log In
+      window.logIn = async function () {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          document.getElementById("message").textContent = "Logged in!";
+        } catch (error) {
+          document.getElementById("message").textContent = error.message;
+        }
+      };
+
+      
+    </script>
+    
   </body>
 </html>
