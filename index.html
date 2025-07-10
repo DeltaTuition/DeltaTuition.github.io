@@ -25,6 +25,11 @@
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
       } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+      import {
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"
+
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
     
@@ -65,11 +70,29 @@
           document.getElementById("message").textContent = error.message;
         }
       };
-      
-      //Wrote a comment to test commit
 
+      //Log Out
+      window.logOut = async function (){
+        await signOut(auth);
+        document.getElementById("message").textContent = "Logged out";
+      };
+
+      //Monitor Auth State
+      onAuthStateChanged(auth, (user) => {
+        const status  = document.getElementById("user-status");
+        if (user) {
+          status.textContent = `Logged in as: ${user.email}`;
+        } else {
+          status.textContent = "Not logged in";
+        }
+      });
+      
       
     </script>
     
+    <button onclick="logOut()">Log Out</button>
+    <p id="user-status"></p>
+
+
   </body>
 </html>
