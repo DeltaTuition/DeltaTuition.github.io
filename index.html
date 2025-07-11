@@ -10,7 +10,6 @@
       .container {
         max-width: 800px;
         margin: 0 auto;
-        min-height: 100vh;
         padding: 20px;
         background-color:white;
       }
@@ -25,15 +24,17 @@
       <p>Welcome to this centralised collection of resources to aid you with your studies. Work in progress!</p>
       <h1>Login System</h1>
 
-      <div>
+      <div class="login-box">
         <input type="email" id="email" placeholder="Email" />
         <input type="password" id="password" placeholder="Password" />
-      </div>
 
-      <button onclick="signUp()">Sign Up</button>
-      <button onclick="logIn()">Log In</button>
-      <p id="message"></p>
-    </div>
+        <div class="button-container">
+          <button onclick="signUp()">Sign Up</button>
+          <button onclick="logIn()">Log In</button>
+        </div>
+
+        <p id="message"></p>
+      </div>
 
     <script type="module">
       // Import the functions you need from the SDKs you need
