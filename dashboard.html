@@ -28,7 +28,12 @@
                 }
         });
 
-        window.logOut = () => signOut(auth);
+        window.logOut = async function (){
+            await signOut(auth);
+            document.getElementById("message").textContent = "Logged out";
+            window.location.href = "index.html"
+        };
+
         </script>
     </body>
 </html>
