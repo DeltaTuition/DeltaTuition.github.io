@@ -73,45 +73,8 @@
         }
       };
 
-      //Log Out
-      window.logOut = async function (){
-        await signOut(auth);
-        document.getElementById("message").textContent = "Logged out";
-        window.location.href = "index.html"
-      };
-
-      //Monitor Auth State
-      onAuthStateChanged(auth, (user) => {
-        const status  = document.getElementById("user-status");
-        const privateContent = document.getElementById("private-content");
-        const publicContent = document.getElementById("public-content");
-
-        if (user) {
-          status.textContent = `Logged in as: ${user.email}`;
-          privateContent.style.display = "block";
-          publicContent.style.display = "none";
-        } else {
-          status.textContent = "Not logged in";
-          privateContent.style.display = "none";
-          publicContent.style.display = "block";
-        }
-      });
-      
       
     </script>
-    
-    <button onclick="logOut()">Log Out</button>
-    <p id="user-status"></p>
-
-    <div id="private-content" style="display:none;">
-      <h2>Welcome to the secret area!</h2>
-      <p>Only logged-in users can see this.</p>
-    </div>
-
-    <div id="public-content">
-      <h2>Welcome guest!</h2>
-      <p>Please log in to access more features</p>
-    </div>
 
 
   </body>
