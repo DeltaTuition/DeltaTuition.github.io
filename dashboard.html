@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <h1>Welcome to your dashboard</h1>
-    <p id="user-status"></p>
-    <p>This website will eventually display all of your homeworks, tests, allow you to schedule lessons and make payments etc.</p>
-    <button id="logout-button">Log out</button>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;  /* Horizontal centering */
+      align-items: center;      /* Vertical centering */
+      height: 100vh;            /* Full viewport height */
+      font-family: sans-serif;  /* Apply sans-serif font */
+    }
+
+    .container {
+      text-align: center;       /* Optional: center text inside */
+    }
+  </style>
+  <div style="width: 600px; margin: 0 auto; text-align: center;">
+    <head>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <h1>Welcome to your dashboard</h1>
+        <p id="user-status"></p>
+        <p>This website will eventually display all of your homeworks, tests, allow you to schedule lessons and make payments etc.</p>
+        <button id="logout-button">Log out</button>
+  </div>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
