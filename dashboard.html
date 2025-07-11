@@ -1,39 +1,46 @@
-<!-- dashboard.html -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Dashboard</title>
-    </head>
-    <body>
-        <h1>Welcome to your dashboard</h1>
-        <p id="user-status"></p>
-        <button onclick="logOut()">Log out</button>
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome to your dashboard</h1>
+    <p id="user-status"></p>
+    <button id="logout-button">Log out</button>
 
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-            import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-            import { firebaseConfig } from "./firebase-config.js";
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+      import { firebaseConfig } from "./firebase-config.js";
 
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-            // Redirect if not logged in
-            onAuthStateChanged(auth, (user) => {
-                const status = document.getElementById("user-status");
-                if (user) {
-                    status.textContent = `Logged in as ${user.email}`;
-                } else {
-                    // Redirect to login if not authenticated
-                    window.location.href = "index.html";
-                }
+      // Run after the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        const status = document.getElementById("user-status");
+        const logoutBtn = document.getElementById("logout-button");
+
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+          console.log("Auth state changed:", user); // For debugging
+          if (user) {
+            status.textContent = `Logged in as ${user.email}`;
+          } else {
+            window.location.href = "index.html";
+          }
         });
 
-        window.logOut = async function (){
+        // Add click event listener instead of onclick attribute
+        logoutBtn.addEventListener("click", async () => {
+          try {
             await signOut(auth);
-            document.getElementById("message").textContent = "Logged out";
-            window.location.href = "index.html"
-        };
-
-        </script>
-    </body>
+            window.location.href = "index.html";
+          } catch (error) {
+            console.error("Sign out failed:", error);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
