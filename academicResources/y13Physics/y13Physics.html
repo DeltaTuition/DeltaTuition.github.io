@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    
 
+      body {
+        margin: 0;
+        font-family: sans-serif;  /* Apply sans-serif font */
+        background-color: #850fe6
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 20px;
+        background-color:white;
+      }
+
+      
+  </style>
+    <div class = "container">
+        <head>
+            <title>Year 13 Physics Resources</title>
+        </head>
+        <body>
+            <img src="homepageassets/Logo.png" width="100">
+            <h1>Year 13 Physics Resources</h1>
+            <p id="user-status"></p>
+            <p>This website will eventually display all of your homeworks, tests, allow you to schedule lessons and make payments etc.</p>
+            <button id="logout-button">Log out</button>
+
+            <h2>Document Table</h2>
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>QP</th>
+                    <th>MS</th>
+                </tr>
+                <tr>
+                    <td>Example Paper 1</td>
+                    <td><a href="qp1.pdf" target="_blank">QP</a></td>
+                    <td><a href="ms1.pdf" target="_blank">MS</a></td>
+                </tr>
+                <tr>
+                    <td>Example Paper 2</td>
+                    <td><a href="qp2.pdf" target="_blank">QP</a></td>
+                    <td><a href="ms2.pdf" target="_blank">MS</a></td>
+                </tr>
+            </table>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+      import { firebaseConfig } from "./firebase-config.js";
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Run after the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        const status = document.getElementById("user-status");
+        const logoutBtn = document.getElementById("logout-button");
+
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+          console.log("Auth state changed:", user); // For debugging
+          if (user) {
+            status.textContent = `Logged in as ${user.email}`;
+          } else {
+            window.location.href = "index.html";
+          }
+        });
+
+        // Add click event listener instead of onclick attribute
+        logoutBtn.addEventListener("click", async () => {
+          try {
+            await signOut(auth);
+            window.location.href = "index.html";
+          } catch (error) {
+            console.error("Sign out failed:", error);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
