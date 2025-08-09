@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    
+
+      body {
+        margin: 0;
+        font-family: sans-serif;  /* Apply sans-serif font */
+        background-color: #850fe6
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 20px;
+        background-color:white;
+      }
+
+      
+  </style>
+    <div class = "container">
+        <head>
+            <title>Year 12 Physics Resources</title>
+            <style>
+              th, td {
+                border: 1px solid #ccc;
+                padding: 10px;
+                text-align: center;
+              } 
+
+
+            </style>
+        </head>
+        <body>
+            <img src="homepageassets/Logo.png" width="100">
+            <h1>Year 12 Physics Resources</h1>
+            <p id="user-status"></p>
+            <button id="logout-button">Log out</button>
+            <a href="dashboard.html" class="button">Go Back</a>
+
+            <table>
+                <tr>
+                    <th>Topic</th>
+                    <th>HW PP</th>
+                    <th>HW MS</th>
+                    <th>Test QP</th>
+                    <th>Test MS</th>
+                </tr>
+                <tr>
+                    <td>Particles</td>
+                    <td><a href="academicResources/y12Physics/AQA Y12P Particles HW QP.pdf " target="_blank">QP</a></td>
+                    <td><a href="academicResources/y12Physics/AQA Y12P Particles HW MS.pdf" target="_blank">MS</a></td>
+                    <td><a href="homepageassets/TBC.pdf" target="_blank">QP</a></td>
+                    <td><a href="homepageassets/TBC.pdf" target="_blank">MS</a></td>
+                </tr>
+                <tr>
+                    <td>Quantum</td>
+                    <td><a href="academicResources/y12Physics/AQA Y12P Quantum HW QP.pdf" target="_blank">QP</a></td>
+                    <td><a href="academicResources/y12Physics/AQA Y12P Quantum HW MS.pdf" target="_blank">MS</a></td>
+                    <td><a href="homepageassets/TBC.pdf" target="_blank">QP</a></td>
+                    <td><a href="homepageassets/TBC.pdf" target="_blank">MS</a></td>
+                </tr>
+     
+
+            </table>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+      import { firebaseConfig } from "./firebase-config.js";
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Run after the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        const status = document.getElementById("user-status");
+        const logoutBtn = document.getElementById("logout-button");
+
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+          console.log("Auth state changed:", user); // For debugging
+          if (user) {
+            status.textContent = `Logged in as ${user.email}`;
+          } else {
+            window.location.href = "index.html";
+          }
+        });
+
+        // Add click event listener instead of onclick attribute
+        logoutBtn.addEventListener("click", async () => {
+          try {
+            await signOut(auth);
+            window.location.href = "index.html";
+          } catch (error) {
+            console.error("Sign out failed:", error);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
 
